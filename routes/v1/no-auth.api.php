@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Handlers\v1\Auth\LoginHandler;
+use App\Http\Handlers\v1\Auth\RegisterHandler;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function() {
-    return response()->json(['message' => 'probando.....']);
-});
+Route::prefix('/auth')->group(
+    function () {
+        Route::post('/login', LoginHandler::class);
+        Route::post('/register', RegisterHandler::class);
+    }
+);

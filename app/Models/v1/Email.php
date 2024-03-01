@@ -2,14 +2,14 @@
 
 namespace App\Models\v1;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\v1\BaseModels\BaseModel;
+use App\Models\v1\Relationships\EmailRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Email extends Model
+class Email extends BaseModel
 {
     use SoftDeletes;
-    use HasUuids;
+    use EmailRelationships;
 
     protected $fillable = [
         'email',

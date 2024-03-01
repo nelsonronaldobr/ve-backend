@@ -2,28 +2,15 @@
 
 namespace App\Models\v1;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\v1\BaseModels\UserBase;
 
-class User extends Authenticatable implements JWTSubject
+class User extends UserBase
 {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
-    use HasUuids;
-    use SoftDeletes;
-    use Sluggable;
-
     protected $fillable = [
         'first_name',
         'last_name',
         'username',
+        'slug',
         'sex',
         'birth_date',
         'token',
@@ -41,23 +28,4 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     public static string $morphClass = 'App\\User';
-
-    public function getJWTIdentifier(): mixed
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims(): array
-    {
-        return [];
-    }
-
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => ['first_name', 'last_name']
-            ]
-        ];
-    }
 }
